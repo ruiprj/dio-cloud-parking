@@ -21,6 +21,9 @@ public class Parking {
         this.color = color;
     }
 
+    public Parking() {
+    }
+
     public String getId() {
         return id;
     }
