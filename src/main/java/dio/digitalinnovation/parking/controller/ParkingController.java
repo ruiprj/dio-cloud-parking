@@ -5,6 +5,8 @@ import dio.digitalinnovation.parking.controller.dto.ParkingDTO;
 import dio.digitalinnovation.parking.controller.mapper.ParkingMapper;
 import dio.digitalinnovation.parking.model.Parking;
 import dio.digitalinnovation.parking.service.ParkingService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/parking")
+@Api(tags = "Parking Controller")
 public class ParkingController {
 
     private final ParkingService parkingService;
@@ -24,6 +27,7 @@ public class ParkingController {
     }
 
     @GetMapping
+    @ApiOperation("Find all parkings")
     public ResponseEntity<List<ParkingDTO>> findAll() {
         List<Parking> parkingList = this.parkingService.findAll();
         List<ParkingDTO> result = this.parkingMapper.toParkingDTOList(parkingList);
