@@ -43,6 +43,13 @@ public class ParkingController {
         return ResponseEntity.ok(result);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable String id) {
+        this.parkingService.delete(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
     @PostMapping
     public ResponseEntity<ParkingDTO> create(@RequestBody ParkingCreateDTO dto) {
         var parkingCreate = this.parkingMapper.toParkingCreate(dto);
@@ -50,6 +57,15 @@ public class ParkingController {
         var result = this.parkingMapper.toParkingDTO(parking);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ParkingDTO> update(@PathVariable String id, @RequestBody ParkingCreateDTO dto) {
+        var parkingCreate = this.parkingMapper.toParkingCreate(dto);
+        var parking = this.parkingService.update(id, parkingCreate);
+        var result = this.parkingMapper.toParkingDTO(parking);
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
 }

@@ -47,4 +47,18 @@ public class ParkingService {
 
         return parkingCreate;
     }
+
+    public void delete(String id) {
+        findById(id);
+
+        this.parkingMap.remove(id);
+    }
+
+    public Parking update(String id, Parking parkingCreate) {
+        Parking parking = findById(id);
+        parking.setColor(parkingCreate.getColor());
+        this.parkingMap.replace(id, parking);
+
+        return parking;
+    }
 }
