@@ -2,7 +2,12 @@ package dio.digitalinnovation.parking.controller;
 
 import dio.digitalinnovation.parking.controller.dto.ParkingCreateDTO;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+import io.restassured.response.ResponseBody;
+import io.restassured.specification.RequestSpecification;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,8 +29,7 @@ class ParkingControllerTest extends AbstractContainerBase {
     @Test
     void whenFindAllThenCheckResult() {
         RestAssured.given()
-                .auth()
-                .basic("user", "Dio@123456")
+                .auth().basic("user", "Dio@123456")
             .when()
                 .get("/parking")
             .then()
@@ -41,14 +45,16 @@ class ParkingControllerTest extends AbstractContainerBase {
         createDTO.setState("SP");
 
         RestAssured.given()
-                .auth()
-                .basic("user", "Dio@123456")
             .when()
+                .auth().basic("user", "Dio@123456")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(createDTO)
                 .post("/parking")
             .then()
                 .statusCode(HttpStatus.CREATED.value())
+                .body("license", Matchers.equalTo("WRT-5555"))
                 .body("color", Matchers.equalTo("AMARELO"));
     }
+
+
 }
