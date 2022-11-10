@@ -54,10 +54,10 @@ public class ParkingService {
         Parking parking = findById(id);
 
         parking.setColor(parkingCreate.getColor());
-        parking.setColor(parkingCreate.getState());
-        parking.setColor(parkingCreate.getModel());
-        parking.setColor(parkingCreate.getLicense());
-        this.parkingRepository.save(parking);
+        parking.setState(parkingCreate.getState());
+        parking.setModel(parkingCreate.getModel());
+        parking.setLicense(parkingCreate.getLicense());
+        parkingRepository.save(parking);
 
         return parking;
     }
